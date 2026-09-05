@@ -65,6 +65,21 @@ Projeto em desenvolvimento.
 - dez perguntas e respostas internas para o pipeline de fine-tuning;
 - validação automática da estrutura e de padrões comuns de dados pessoais.
 
+## Fine-tuning no Google Colab
+
+O notebook [`notebooks/01_fine_tuning_qlora.ipynb`](notebooks/01_fine_tuning_qlora.ipynb)
+executa SFT com QLoRA sobre o modelo `Qwen/Qwen2.5-1.5B-Instruct`. Ele inclui:
+
+- verificação da GPU;
+- carregamento dos conjuntos de treino, validação e teste;
+- quantização do modelo-base em 4 bits;
+- configuração dos adaptadores LoRA;
+- captura de respostas antes e depois do treinamento;
+- curva de perda, metadados da execução e exportação do adaptador.
+
+Para executar, abra o notebook pelo GitHub no Google Colab e selecione uma GPU
+T4 em **Ambiente de execução → Alterar o tipo de ambiente de execução**.
+
 ## Próximas etapas
 
 - [x] Criar dados clínicos sintéticos e protocolos internos.
