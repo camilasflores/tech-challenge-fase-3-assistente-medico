@@ -31,7 +31,13 @@ Execute na raiz do projeto:
 
 ```bash
 python -m fine_tuning.validate_data
+python -m fine_tuning.prepare_dataset
 ```
 
 O comando verifica a estrutura dos pacientes, IDs duplicados e presença de
 informações pessoais proibidas nos dados sintéticos.
+
+O segundo comando normaliza e anonimiza as FAQs, cria três formulações de cada
+pergunta e gera `train.jsonl`, `validation.jsonl`, `test.jsonl` e
+`quality_report.json`. A divisão é realizada pelo ID da FAQ original, portanto
+variações da mesma pergunta nunca aparecem em conjuntos diferentes.

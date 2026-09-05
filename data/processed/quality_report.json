@@ -1,0 +1,45 @@
+{
+  "dataset_version": "1.0.0",
+  "random_seed": 42,
+  "raw_records": 10,
+  "total_examples": 30,
+  "examples_per_split": {
+    "train": 21,
+    "validation": 6,
+    "test": 3
+  },
+  "source_ids_per_split": {
+    "train": [
+      "FAQ-003",
+      "FAQ-004",
+      "FAQ-006",
+      "FAQ-007",
+      "FAQ-008",
+      "FAQ-009",
+      "FAQ-010"
+    ],
+    "validation": [
+      "FAQ-001",
+      "FAQ-005"
+    ],
+    "test": [
+      "FAQ-002"
+    ]
+  },
+  "source_overlap": {
+    "train_validation": [],
+    "train_test": [],
+    "validation_test": []
+  },
+  "categories": {
+    "acompanhamento": 3,
+    "alerta": 6,
+    "auditoria": 3,
+    "dados_ausentes": 3,
+    "exames": 3,
+    "explainability": 3,
+    "privacidade": 3,
+    "seguranca": 6
+  },
+  "sha256": "563ce8d730be35a05b721eecc72d3fb8cccd664dcad0559c3eec088e18ec20a1"
+}

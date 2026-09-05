@@ -68,8 +68,8 @@ Projeto em desenvolvimento.
 ## Próximas etapas
 
 - [x] Criar dados clínicos sintéticos e protocolos internos.
-- [ ] Implementar preprocessing e anonimização.
-- [ ] Preparar o dataset de instruções.
+- [x] Implementar preprocessing e anonimização.
+- [x] Preparar o dataset de instruções.
 - [ ] Executar fine-tuning com LoRA/QLoRA no Google Colab.
 - [ ] Construir o pipeline com LangChain.
 - [ ] Implementar o fluxo de decisão com LangGraph.
