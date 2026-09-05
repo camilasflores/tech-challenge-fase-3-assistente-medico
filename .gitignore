@@ -149,6 +149,8 @@ activemq-data/
 
 # Environments
 .env
+.env.*
+!.env.example
 .envrc
 .venv
 env/
@@ -156,6 +158,23 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+
+# Modelos treinados e artefatos locais
+models/
+artifacts/
+*.safetensors
+*.gguf
+
+# Bases e logs gerados em execução
+*.db
+*.sqlite
+*.sqlite3
+logs/
+
+# Sistema operacional e editores
+.DS_Store
+.idea/
+.vscode/
 
 # Spyder project settings
 .spyderproject
