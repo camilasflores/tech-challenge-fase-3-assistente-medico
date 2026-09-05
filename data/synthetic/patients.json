@@ -1,0 +1,115 @@
+{
+  "metadata": {
+    "dataset_name": "prontuarios_sinteticos_hipertensao",
+    "version": "1.0.0",
+    "synthetic": true,
+    "reference_date": "2026-09-05",
+    "description": "Registros totalmente ficticios para demonstracao academica."
+  },
+  "patients": [
+    {
+      "patient_id": "PAC-001",
+      "demographics": {"age": 58, "sex": "F"},
+      "diagnoses": ["hipertensao arterial sistemica"],
+      "allergies": [],
+      "medications": [
+        {"name": "losartana", "dose": "50 mg", "frequency": "conforme prescricao vigente"}
+      ],
+      "latest_vitals": {
+        "measured_at": "2026-08-28T09:20:00Z",
+        "systolic_bp": 128,
+        "diastolic_bp": 82,
+        "heart_rate": 72
+      },
+      "reported_symptoms": [],
+      "exams": [
+        {"name": "creatinina", "status": "completed", "date": "2026-07-10", "result": "0.9 mg/dL"},
+        {"name": "potassio", "status": "completed", "date": "2026-07-10", "result": "4.3 mEq/L"},
+        {"name": "eletrocardiograma", "status": "completed", "date": "2026-06-15", "result": "sem alteracoes relevantes descritas"}
+      ],
+      "last_follow_up": "2026-08-28",
+      "notes": "Relata adesao ao plano definido pela equipe e medidas domiciliares regulares."
+    },
+    {
+      "patient_id": "PAC-002",
+      "demographics": {"age": 64, "sex": "M"},
+      "diagnoses": ["hipertensao arterial sistemica", "diabetes mellitus tipo 2"],
+      "allergies": ["dipirona"],
+      "medications": [
+        {"name": "enalapril", "dose": "10 mg", "frequency": "conforme prescricao vigente"},
+        {"name": "metformina", "dose": "500 mg", "frequency": "conforme prescricao vigente"}
+      ],
+      "latest_vitals": {
+        "measured_at": "2026-09-02T13:40:00Z",
+        "systolic_bp": 164,
+        "diastolic_bp": 102,
+        "heart_rate": 84
+      },
+      "reported_symptoms": [],
+      "exams": [
+        {"name": "creatinina", "status": "completed", "date": "2026-05-20", "result": "1.2 mg/dL"},
+        {"name": "potassio", "status": "pending", "due_date": "2026-08-20", "result": null},
+        {"name": "relacao albumina-creatinina urinaria", "status": "pending", "due_date": "2026-08-20", "result": null}
+      ],
+      "last_follow_up": "2026-05-20",
+      "notes": "Duas medidas domiciliares recentes tambem foram descritas como elevadas. Requer revisao clinica."
+    },
+    {
+      "patient_id": "PAC-003",
+      "demographics": {"age": 47, "sex": "F"},
+      "diagnoses": ["hipertensao arterial sistemica"],
+      "allergies": [],
+      "medications": [
+        {"name": "anlodipino", "dose": "5 mg", "frequency": "conforme prescricao vigente"}
+      ],
+      "latest_vitals": {
+        "measured_at": "2026-08-30T10:15:00Z",
+        "systolic_bp": 138,
+        "diastolic_bp": 88,
+        "heart_rate": 76
+      },
+      "reported_symptoms": [],
+      "exams": [
+        {"name": "creatinina", "status": "pending", "due_date": "2026-08-01", "result": null},
+        {"name": "glicemia de jejum", "status": "pending", "due_date": "2026-08-01", "result": null},
+        {"name": "perfil lipidico", "status": "pending", "due_date": "2026-08-01", "result": null}
+      ],
+      "last_follow_up": "2026-04-22",
+      "notes": "Sem queixas atuais; exames de acompanhamento ainda nao realizados."
+    },
+    {
+      "patient_id": "PAC-004",
+      "demographics": {"age": 71, "sex": "M"},
+      "diagnoses": ["hipertensao arterial sistemica", "doenca renal cronica"],
+      "allergies": [],
+      "medications": [
+        {"name": "losartana", "dose": "50 mg", "frequency": "conforme prescricao vigente"}
+      ],
+      "latest_vitals": {
+        "measured_at": "2026-09-05T12:05:00Z",
+        "systolic_bp": 188,
+        "diastolic_bp": 122,
+        "heart_rate": 96
+      },
+      "reported_symptoms": ["dor toracica", "falta de ar"],
+      "exams": [
+        {"name": "creatinina", "status": "completed", "date": "2026-08-15", "result": "2.1 mg/dL"},
+        {"name": "potassio", "status": "completed", "date": "2026-08-15", "result": "5.0 mEq/L"}
+      ],
+      "last_follow_up": "2026-08-15",
+      "notes": "Cenario sintetico criado para testar encaminhamento imediato e bloqueio da geracao comum."
+    },
+    {
+      "patient_id": "PAC-005",
+      "demographics": {"age": 52, "sex": "F"},
+      "diagnoses": ["hipertensao arterial sistemica"],
+      "allergies": [],
+      "medications": [],
+      "latest_vitals": null,
+      "reported_symptoms": [],
+      "exams": [],
+      "last_follow_up": null,
+      "notes": "Cadastro propositalmente incompleto para testar solicitacao de dados adicionais."
+    }
+  ]
+}
