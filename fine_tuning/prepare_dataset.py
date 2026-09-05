@@ -17,6 +17,8 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_INPUT = PROJECT_ROOT / "data" / "raw" / "internal_faq.jsonl"
 DEFAULT_OUTPUT = PROJECT_ROOT / "data" / "processed"
 RANDOM_SEED = 42
+VALIDATION_SOURCE_IDS = {"FAQ-001", "FAQ-005", "FAQ-011"}
+TEST_SOURCE_IDS = {"FAQ-002", "FAQ-012", "FAQ-018"}
 
 SYSTEM_PROMPT = (
     "Você é um assistente acadêmico de apoio à equipe médica. Responda apenas "
@@ -106,15 +108,25 @@ def build_examples(records: Iterable[dict]) -> list[dict]:
 
 def split_source_ids(source_ids: list[str]) -> dict[str, set[str]]:
     """Divide IDs de origem antes das variações para impedir vazamento."""
-    unique_ids = sorted(set(source_ids))
-    random.Random(RANDOM_SEED).shuffle(unique_ids)
-    total = len(unique_ids)
-    train_end = max(1, round(total * 0.7))
-    validation_end = min(total - 1, train_end + max(1, round(total * 0.2)))
+    unique_ids = set(source_ids)
+    validation_ids = unique_ids & VALIDATION_SOURCE_IDS
+    test_ids = unique_ids & TEST_SOURCE_IDS
+    train_ids = unique_ids - validation_ids - test_ids
+
+    if not validation_ids or not test_ids or not train_ids:
+        fallback_ids = sorted(unique_ids)
+        random.Random(RANDOM_SEED).shuffle(fallback_ids)
+        total = len(fallback_ids)
+        train_end = max(1, round(total * 0.7))
+        validation_end = min(total - 1, train_end + max(1, round(total * 0.2)))
+        train_ids = set(fallback_ids[:train_end])
+        validation_ids = set(fallback_ids[train_end:validation_end])
+        test_ids = set(fallback_ids[validation_end:])
+
     return {
-        "train": set(unique_ids[:train_end]),
-        "validation": set(unique_ids[train_end:validation_end]),
-        "test": set(unique_ids[validation_end:]),
+        "train": train_ids,
+        "validation": validation_ids,
+        "test": test_ids,
     }
 
 

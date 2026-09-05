@@ -62,7 +62,7 @@ Projeto em desenvolvimento.
 - cenários de rotina, revisão clínica, alerta e dados ausentes;
 - protocolo fictício de acompanhamento de hipertensão;
 - política de segurança e limites de atuação;
-- dez perguntas e respostas internas para o pipeline de fine-tuning;
+- vinte perguntas e respostas internas para o pipeline de fine-tuning;
 - validação automática da estrutura e de padrões comuns de dados pessoais.
 
 ## Fine-tuning no Google Colab

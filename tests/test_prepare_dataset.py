@@ -40,7 +40,10 @@ class PrepareDatasetTest(unittest.TestCase):
             report = prepare_dataset(input_path, Path(temp_dir))
             for overlap in report["source_overlap"].values():
                 self.assertEqual(overlap, [])
-            self.assertEqual(report["total_examples"], 30)
+            self.assertEqual(report["total_examples"], 60)
+            self.assertEqual(report["examples_per_split"]["train"], 42)
+            self.assertEqual(report["examples_per_split"]["validation"], 9)
+            self.assertEqual(report["examples_per_split"]["test"], 9)
 
             written = read_jsonl(Path(temp_dir) / "train.jsonl")
             self.assertEqual(len(written), report["examples_per_split"]["train"])

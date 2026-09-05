@@ -1,12 +1,12 @@
 {
   "dataset_version": "1.0.0",
   "random_seed": 42,
-  "raw_records": 10,
-  "total_examples": 30,
+  "raw_records": 20,
+  "total_examples": 60,
   "examples_per_split": {
-    "train": 21,
-    "validation": 6,
-    "test": 3
+    "train": 42,
+    "validation": 9,
+    "test": 9
   },
   "source_ids_per_split": {
     "train": [
@@ -16,14 +16,24 @@
       "FAQ-007",
       "FAQ-008",
       "FAQ-009",
-      "FAQ-010"
+      "FAQ-010",
+      "FAQ-013",
+      "FAQ-014",
+      "FAQ-015",
+      "FAQ-016",
+      "FAQ-017",
+      "FAQ-019",
+      "FAQ-020"
     ],
     "validation": [
       "FAQ-001",
-      "FAQ-005"
+      "FAQ-005",
+      "FAQ-011"
     ],
     "test": [
-      "FAQ-002"
+      "FAQ-002",
+      "FAQ-012",
+      "FAQ-018"
     ]
   },
   "source_overlap": {
@@ -33,13 +43,13 @@
   },
   "categories": {
     "acompanhamento": 3,
-    "alerta": 6,
-    "auditoria": 3,
-    "dados_ausentes": 3,
+    "alerta": 9,
+    "auditoria": 6,
+    "dados_ausentes": 6,
     "exames": 3,
-    "explainability": 3,
+    "explicabilidade": 9,
     "privacidade": 3,
-    "seguranca": 6
+    "segurança": 21
   },
-  "sha256": "563ce8d730be35a05b721eecc72d3fb8cccd664dcad0559c3eec088e18ec20a1"
+  "sha256": "1216339c93249e5f79510d15a3d01c6366d70d9babed5983c059e80303159a38"
 }
