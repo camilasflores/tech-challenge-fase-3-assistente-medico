@@ -27,6 +27,23 @@ class StubProtocolRetriever:
         ]
 
 
+class SafeStubGenerator:
+    model_name = "safe_stub"
+
+    def generate(self, messages: list[dict[str, str]]) -> str:
+        return (
+            "Exames pendentes: creatinina, glicemia de jejum e perfil lipidico. "
+            "A validação por profissional habilitado é obrigatória."
+        )
+
+
+class UnsafeStubGenerator:
+    model_name = "unsafe_stub"
+
+    def generate(self, messages: list[dict[str, str]]) -> str:
+        return "Tome losartana todos os dias."
+
+
 @pytest.fixture
 def graph():
     with tempfile.TemporaryDirectory() as directory:
@@ -36,6 +53,7 @@ def graph():
             repository=PatientRepository(database_path),
             protocol_retriever=StubProtocolRetriever(),
             audit_logger=AuditLogger(Path(directory) / "audit.jsonl"),
+            text_generator=SafeStubGenerator(),
         )
 
 
@@ -82,6 +100,29 @@ def test_common_flow_retrieves_protocol_and_composes_traceable_answer(graph):
     assert "perfil lipidico" in result["final_answer"]
     assert "sqlite:medical_records" in result["sources"]
     assert "data/protocols/PROTOCOLO_HAS_001.md" in result["sources"]
+    assert result["model_name"] == "safe_stub"
+    assert result["generation_fallback"] is False
+
+
+def test_unsafe_model_output_is_replaced_by_deterministic_fallback():
+    with tempfile.TemporaryDirectory() as directory:
+        database_path = Path(directory) / "test.db"
+        seed_database(database_path)
+        graph = build_assistant_graph(
+            repository=PatientRepository(database_path),
+            protocol_retriever=StubProtocolRetriever(),
+            audit_logger=AuditLogger(Path(directory) / "audit.jsonl"),
+            text_generator=UnsafeStubGenerator(),
+        )
+
+        result = graph.invoke(
+            {"question": "Quais exames estão pendentes?", "patient_id": "PAC-003"}
+        )
+
+    assert result["generation_fallback"] is True
+    assert result["model_name"] == "unsafe_stub"
+    assert "Tome losartana" not in result["final_answer"]
+    assert "validação por profissional habilitado" in result["final_answer"]
 
 
 def test_rejects_invalid_identifier(graph):

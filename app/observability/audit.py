@@ -52,6 +52,8 @@ class AuditLogger:
             "human_validation_required": bool(
                 state.get("human_validation_required")
             ),
+            "model_name": state.get("model_name"),
+            "generation_fallback": state.get("generation_fallback"),
             "executed_nodes": [*state.get("executed_nodes", []), "audit_execution"],
             "sources": list(dict.fromkeys(state.get("sources", []))),
             "triggered_rules": self._triggered_rules(state),
@@ -62,4 +64,3 @@ class AuditLogger:
         with self._lock, self.log_path.open("a", encoding="utf-8") as log_file:
             log_file.write(serialized + "\n")
         return event
-

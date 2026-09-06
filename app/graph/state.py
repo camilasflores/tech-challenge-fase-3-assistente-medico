@@ -16,6 +16,8 @@ class AssistantState(TypedDict, total=False):
     alert_symptoms: list[str]
     protocol_excerpts: list[dict[str, Any]]
     final_answer: str
+    model_name: str
+    generation_fallback: bool
     blocked: bool
     human_validation_required: bool
     run_id: str

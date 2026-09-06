@@ -8,8 +8,14 @@ from typing import Any, Literal
 from langgraph.graph import END, START, StateGraph
 
 from app.chains.protocol_retriever import build_protocol_retriever
+from app.chains.response_chain import (
+    build_generation_messages,
+    is_safe_generated_answer,
+)
 from app.database.repository import PatientRepository
 from app.graph.state import AssistantState
+from app.models.factory import create_generator_from_environment
+from app.models.generator import TextGenerator
 from app.observability.audit import AuditLogger
 from app.safety.rules import (
     classify_priority,
@@ -32,11 +38,13 @@ def build_assistant_graph(
     repository: PatientRepository | None = None,
     protocol_retriever: Any | None = None,
     audit_logger: AuditLogger | None = None,
+    text_generator: TextGenerator | None = None,
 ):
     """Monta o grafo com dependências injetáveis para execução e testes."""
     patient_repository = repository or PatientRepository()
     retriever = protocol_retriever or build_protocol_retriever()
     auditor = audit_logger or AuditLogger()
+    generator = text_generator or create_generator_from_environment()
 
     def validate_request(state: AssistantState) -> dict[str, Any]:
         question = state.get("question", "").strip()
@@ -171,12 +179,21 @@ def build_assistant_graph(
             if vitals
             else "não registrada"
         )
+        safe_fallback = (
+            f"Resumo do {state['patient_id']}: pressão mais recente {pressure}; "
+            f"{_format_pending_exams(record)}. Prioridade: {state['priority']}. "
+            "A interpretação e qualquer conduta exigem validação por profissional habilitado."
+        )
+        try:
+            generated_answer = generator.generate(build_generation_messages(state))
+            answer_is_safe = is_safe_generated_answer(generated_answer)
+        except Exception:
+            generated_answer = ""
+            answer_is_safe = False
         return {
-            "final_answer": (
-                f"Resumo do {state['patient_id']}: pressão mais recente {pressure}; "
-                f"{_format_pending_exams(record)}. Prioridade: {state['priority']}. "
-                "A interpretação e qualquer conduta exigem validação por profissional habilitado."
-            ),
+            "final_answer": generated_answer if answer_is_safe else safe_fallback,
+            "model_name": generator.model_name,
+            "generation_fallback": not answer_is_safe,
             "blocked": False,
             "human_validation_required": True,
             "executed_nodes": ["compose_response"],

@@ -109,7 +109,7 @@ os dois protocolos pequenos desta demonstração.
 
 O `AssistantState` transporta pergunta, prontuário, prioridade, fontes e nós
 executados. O grafo aplica as seguintes rotas determinísticas antes de qualquer
-futura geração por LLM:
+geração por LLM:
 
 1. valida a pergunta e o identificador sintético;
 2. bloqueia pedidos de diagnóstico, prescrição ou alteração de dose;
@@ -127,6 +127,32 @@ python -m app.main PAC-003 "Quais exames estão pendentes?"
 Na primeira execução, o modelo de embeddings será baixado. A saída JSON inclui
 `priority`, `final_answer`, `sources`, `executed_nodes` e a indicação de revisão
 humana obrigatória.
+
+## Inferência com o adaptador LoRA
+
+O fluxo aceita qualquer implementação do contrato `TextGenerator`. Quando a
+variável `LORA_ADAPTER_PATH` aponta para o adaptador exportado pelo notebook, o
+`HuggingFaceLoRAGenerator`:
+
+1. lê o modelo-base de `adapter_config.json`;
+2. carrega o tokenizer e o `Qwen2.5-1.5B-Instruct`;
+3. aplica os pesos com `PeftModel.from_pretrained`;
+4. formata as mensagens com o chat template do tokenizer;
+5. gera a resposta de forma determinística.
+
+No Colab, após enviar e descompactar o ZIP, configure o caminho que contém os
+arquivos `adapter_config.json` e `adapter_model.safetensors`:
+
+```bash
+export LORA_ADAPTER_PATH=/content/assistente-medico-lora
+python -m app.main PAC-003 "Quais exames estão pendentes?"
+```
+
+Sem essa variável, a aplicação usa um fallback seguro e continua executável.
+Depois da geração, a resposta passa por uma verificação independente. Saídas
+vazias, erros do modelo ou comandos clínicos diretos são substituídos por um
+resumo determinístico. O log registra o modelo utilizado e se houve fallback,
+mas nunca registra o texto gerado.
 
 ## Auditoria e privacidade
 
@@ -159,5 +185,7 @@ T4 em **Ambiente de execução → Alterar o tipo de ambiente de execução**.
 - [x] Integrar prontuários e protocolos no pipeline de resposta.
 - [x] Implementar o fluxo de decisão com LangGraph.
 - [x] Adicionar regras de segurança, fontes, logs e testes.
+- [x] Integrar o carregador do modelo-base com o adaptador LoRA.
+- [ ] Validar a inferência com o adaptador LoRA real.
 - [ ] Criar a interface de demonstração.
 - [ ] Documentar a avaliação e os resultados.

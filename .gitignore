@@ -160,7 +160,7 @@ env.bak/
 venv.bak/
 
 # Modelos treinados e artefatos locais
-models/
+/models/
 artifacts/
 *.safetensors
 *.gguf
