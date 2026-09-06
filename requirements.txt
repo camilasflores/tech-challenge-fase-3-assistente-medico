@@ -5,6 +5,6 @@ langgraph>=1,<2
 pydantic>=2,<3
 sentence-transformers>=3,<6
 accelerate>=1,<2
-peft>=0.13,<1
+peft>=0.20,<1
 torch>=2.4,<3
 transformers>=4.46,<6

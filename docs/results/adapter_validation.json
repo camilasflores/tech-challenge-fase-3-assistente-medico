@@ -1,0 +1,20 @@
+{
+  "archive_name": "assistente-medico-lora (2).zip",
+  "archive_sha256": "e63b663e77b3a8bef5663100a8e590845e89ecc50e59138ea28ad624b13f7e4f",
+  "archive_size_bytes": 332040747,
+  "validated_adapter_location": "archive_root",
+  "base_model_name_or_path": "Qwen/Qwen2.5-1.5B-Instruct",
+  "peft_type": "LORA",
+  "peft_version": "0.20.0",
+  "task_type": "CAUSAL_LM",
+  "rank": 16,
+  "lora_alpha": 32,
+  "lora_dropout": 0.05,
+  "weight_file": "adapter_model.safetensors",
+  "weight_size_bytes": 73911112,
+  "tensor_count": 392,
+  "parameter_count": 18464768,
+  "tensor_dtype": "float32",
+  "matches_training_reported_trainable_parameters": true,
+  "notes": "Os diretórios checkpoint-18 e checkpoint-24 e os estados do otimizador não são necessários para inferência."
+}

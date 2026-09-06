@@ -57,3 +57,17 @@ gerado pela LLM.
 Os resultados devem ser interpretados apenas como validação acadêmica do
 pipeline. O dataset sintético e reduzido não permite alegar eficácia ou
 segurança clínica.
+
+## Validação do adaptador exportado
+
+O ZIP real exportado pelo Colab foi inspecionado sem executar arquivos pickle.
+O adaptador da raiz contém 392 tensores `float32`, totalizando exatamente
+18.464.768 parâmetros, o mesmo número registrado durante o treinamento. O
+`adapter_config.json` referencia `Qwen/Qwen2.5-1.5B-Instruct`, PEFT 0.20.0,
+LoRA rank 16 e alpha 32.
+
+O ZIP também contém os checkpoints 18 e 24, estados do otimizador e demais
+artefatos necessários apenas para retomar o treinamento. A aplicação extrai
+somente configuração, pesos, tokenizer, chat template e README presentes na
+raiz. Os metadados e o SHA-256 do arquivo analisado estão registrados em
+`adapter_validation.json`.

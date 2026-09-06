@@ -140,12 +140,14 @@ variável `LORA_ADAPTER_PATH` aponta para o adaptador exportado pelo notebook, o
 4. formata as mensagens com o chat template do tokenizer;
 5. gera a resposta de forma determinística.
 
-No Colab, após enviar e descompactar o ZIP, configure o caminho que contém os
-arquivos `adapter_config.json` e `adapter_model.safetensors`:
+No Colab, envie o ZIP para `/content` e execute estas células. O extrator copia
+somente os arquivos necessários para inferência e ignora os checkpoints e o
+estado do otimizador:
 
-```bash
-export LORA_ADAPTER_PATH=/content/assistente-medico-lora
-python -m app.main PAC-003 "Quais exames estão pendentes?"
+```python
+!python -m app.models.adapter_archive "/content/assistente-medico-lora (2).zip" "/content/assistente-medico-lora"
+%env LORA_ADAPTER_PATH=/content/assistente-medico-lora
+!python -m app.main PAC-003 "Quais exames estão pendentes?"
 ```
 
 Sem essa variável, a aplicação usa um fallback seguro e continua executável.
@@ -186,6 +188,7 @@ T4 em **Ambiente de execução → Alterar o tipo de ambiente de execução**.
 - [x] Implementar o fluxo de decisão com LangGraph.
 - [x] Adicionar regras de segurança, fontes, logs e testes.
 - [x] Integrar o carregador do modelo-base com o adaptador LoRA.
+- [x] Validar a estrutura e a integridade dos pesos do adaptador real.
 - [ ] Validar a inferência com o adaptador LoRA real.
 - [ ] Criar a interface de demonstração.
 - [ ] Documentar a avaliação e os resultados.
