@@ -80,6 +80,19 @@ executa SFT com QLoRA sobre o modelo `Qwen/Qwen2.5-1.5B-Instruct`. Ele inclui:
 Os resultados reais da execução v2 e sua análise estão documentados em
 [`docs/results/`](docs/results/).
 
+## Base estruturada de prontuários
+
+Os prontuários sintéticos são carregados em SQLite para representar a consulta
+a dados atualizados do paciente. O banco é reproduzível e não é versionado:
+
+```bash
+python -m app.database.seed
+```
+
+O módulo `PatientRepository` oferece consultas parametrizadas e somente leitura.
+As ferramentas LangChain `get_patient_record` e `get_pending_exams` expõem
+resultados estruturados e incluem a identificação da fonte consultada.
+
 Para executar, abra o notebook pelo GitHub no Google Colab e selecione uma GPU
 T4 em **Ambiente de execução → Alterar o tipo de ambiente de execução**.
 
