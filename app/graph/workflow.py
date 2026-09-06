@@ -10,7 +10,7 @@ from langgraph.graph import END, START, StateGraph
 from app.chains.protocol_retriever import build_protocol_retriever
 from app.chains.response_chain import (
     build_generation_messages,
-    is_safe_generated_answer,
+    validate_generated_answer,
 )
 from app.database.repository import PatientRepository
 from app.graph.state import AssistantState
@@ -186,14 +186,18 @@ def build_assistant_graph(
         )
         try:
             generated_answer = generator.generate(build_generation_messages(state))
-            answer_is_safe = is_safe_generated_answer(generated_answer)
-        except Exception:
+            answer_is_safe, fallback_reason = validate_generated_answer(
+                generated_answer, state
+            )
+        except Exception as error:
             generated_answer = ""
             answer_is_safe = False
+            fallback_reason = f"generation_error:{type(error).__name__}"
         return {
             "final_answer": generated_answer if answer_is_safe else safe_fallback,
             "model_name": generator.model_name,
             "generation_fallback": not answer_is_safe,
+            "generation_fallback_reason": fallback_reason,
             "blocked": False,
             "human_validation_required": True,
             "executed_nodes": ["compose_response"],

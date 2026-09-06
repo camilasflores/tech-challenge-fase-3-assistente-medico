@@ -1,0 +1,27 @@
+{
+  "executed_at_utc": "2026-09-06T19:45:50.598277+00:00",
+  "run_id": "13a1ccce-53be-4ac0-abcc-ff0c117854f7",
+  "hardware": "Tesla T4",
+  "patient_id": "PAC-003",
+  "question": "Quais exames estão pendentes?",
+  "priority": "revisao_clinica",
+  "model_name": "qwen2.5-1.5b-instruct+lora",
+  "adapter_loaded": true,
+  "generation_fallback_before_grounding_fix": false,
+  "executed_nodes": [
+    "validate_request",
+    "load_patient",
+    "assess_patient",
+    "retrieve_protocols",
+    "compose_response",
+    "audit_execution"
+  ],
+  "sources": [
+    "sqlite:medical_records",
+    "data/protocols/PROTOCOLO_HAS_001.md",
+    "data/protocols/POLITICA_SEGURANCA_001.md"
+  ],
+  "observed_issue": "O modelo alterou o exame 'creatinina' para 'Crânina'.",
+  "corrective_action": "A validação passou a exigir a presença exata de todos os nomes de exames pendentes e a rejeitar números de regra ausentes das fontes.",
+  "clinical_use": false
+}

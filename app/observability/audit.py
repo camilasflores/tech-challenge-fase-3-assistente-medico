@@ -54,6 +54,7 @@ class AuditLogger:
             ),
             "model_name": state.get("model_name"),
             "generation_fallback": state.get("generation_fallback"),
+            "generation_fallback_reason": state.get("generation_fallback_reason"),
             "executed_nodes": [*state.get("executed_nodes", []), "audit_execution"],
             "sources": list(dict.fromkeys(state.get("sources", []))),
             "triggered_rules": self._triggered_rules(state),

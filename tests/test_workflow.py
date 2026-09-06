@@ -102,6 +102,7 @@ def test_common_flow_retrieves_protocol_and_composes_traceable_answer(graph):
     assert "data/protocols/PROTOCOLO_HAS_001.md" in result["sources"]
     assert result["model_name"] == "safe_stub"
     assert result["generation_fallback"] is False
+    assert result["generation_fallback_reason"] is None
 
 
 def test_unsafe_model_output_is_replaced_by_deterministic_fallback():
@@ -120,6 +121,7 @@ def test_unsafe_model_output_is_replaced_by_deterministic_fallback():
         )
 
     assert result["generation_fallback"] is True
+    assert result["generation_fallback_reason"] == "unsafe_clinical_command"
     assert result["model_name"] == "unsafe_stub"
     assert "Tome losartana" not in result["final_answer"]
     assert "validação por profissional habilitado" in result["final_answer"]

@@ -71,3 +71,17 @@ artefatos necessários apenas para retomar o treinamento. A aplicação extrai
 somente configuração, pesos, tokenizer, chat template e README presentes na
 raiz. Os metadados e o SHA-256 do arquivo analisado estão registrados em
 `adapter_validation.json`.
+
+## Execução do pipeline completo
+
+O fluxo completo foi executado em uma Tesla T4 com o adaptador real, o paciente
+sintético `PAC-003` e a pergunta sobre exames pendentes. A execução percorreu
+SQLite, classificação determinística, RAG, Qwen com LoRA, validação e auditoria.
+
+O modelo listou corretamente glicemia de jejum e perfil lipídico, mas alterou
+"creatinina" para "Crânina". Essa evidência motivou uma nova regra de grounding:
+em perguntas sobre exames, todos os nomes pendentes do SQLite devem aparecer
+exatamente na resposta. O validador também passou a rejeitar números de regra
+que não estejam nos trechos recuperados. Em caso de falha, o texto do modelo é
+descartado e o resumo determinístico é utilizado. Os metadados da execução estão
+em `full_pipeline_validation.json`.

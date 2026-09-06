@@ -53,6 +53,7 @@ class HuggingFaceLoRAGenerator:
 
         import torch
         from peft import PeftModel
+        import transformers
         from transformers import AutoModelForCausalLM, AutoTokenizer
 
         base_model_id = self._base_model_id()
@@ -63,11 +64,16 @@ class HuggingFaceLoRAGenerator:
         )
         tokenizer = AutoTokenizer.from_pretrained(tokenizer_source)
         dtype = torch.float16 if torch.cuda.is_available() else torch.float32
+        dtype_argument = (
+            {"dtype": dtype}
+            if int(transformers.__version__.split(".", 1)[0]) >= 5
+            else {"torch_dtype": dtype}
+        )
         model = AutoModelForCausalLM.from_pretrained(
             base_model_id,
             device_map="auto",
-            torch_dtype=dtype,
             low_cpu_mem_usage=True,
+            **dtype_argument,
         )
         model = PeftModel.from_pretrained(model, self.adapter_path)
         model.eval()
@@ -100,4 +106,3 @@ class HuggingFaceLoRAGenerator:
         return self._tokenizer.decode(
             output[0][prompt_length:], skip_special_tokens=True
         ).strip()
-

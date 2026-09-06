@@ -17,6 +17,9 @@ def test_audit_writes_minimal_jsonl_event(tmp_path):
         "priority": "revisao_imediata",
         "blocked": True,
         "human_validation_required": True,
+        "model_name": "test_model",
+        "generation_fallback": True,
+        "generation_fallback_reason": "missing_or_changed_exam_name",
         "executed_nodes": ["validate_request", "emergency_response"],
         "sources": ["sqlite:medical_records", "sqlite:medical_records"],
     }
@@ -28,6 +31,7 @@ def test_audit_writes_minimal_jsonl_event(tmp_path):
     assert persisted["patient_id"] == "PAC-004"
     assert persisted["triggered_rules"] == ["emergency_symptoms"]
     assert persisted["sources"] == ["sqlite:medical_records"]
+    assert persisted["generation_fallback_reason"] == "missing_or_changed_exam_name"
     assert "question" not in persisted
     assert "patient_record" not in persisted
     assert "final_answer" not in persisted

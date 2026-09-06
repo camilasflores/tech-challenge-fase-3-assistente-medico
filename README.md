@@ -150,6 +150,10 @@ estado do otimizador:
 !python -m app.main PAC-003 "Quais exames estão pendentes?"
 ```
 
+Se o Colab apresentar conflito entre o PEFT e uma versão antiga do pacote
+opcional TorchAO, remova-o com `!pip uninstall -y torchao` e reinicie somente a
+sessão. O adaptador LoRA deste projeto não depende do TorchAO.
+
 Sem essa variável, a aplicação usa um fallback seguro e continua executável.
 Depois da geração, a resposta passa por uma verificação independente. Saídas
 vazias, erros do modelo ou comandos clínicos diretos são substituídos por um
@@ -189,6 +193,7 @@ T4 em **Ambiente de execução → Alterar o tipo de ambiente de execução**.
 - [x] Adicionar regras de segurança, fontes, logs e testes.
 - [x] Integrar o carregador do modelo-base com o adaptador LoRA.
 - [x] Validar a estrutura e a integridade dos pesos do adaptador real.
-- [ ] Validar a inferência com o adaptador LoRA real.
+- [x] Validar a inferência com o adaptador LoRA real.
+- [x] Adicionar grounding para nomes de exames e referências a regras.
 - [ ] Criar a interface de demonstração.
 - [ ] Documentar a avaliação e os resultados.
