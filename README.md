@@ -93,6 +93,18 @@ O módulo `PatientRepository` oferece consultas parametrizadas e somente leitura
 As ferramentas LangChain `get_patient_record` e `get_pending_exams` expõem
 resultados estruturados e incluem a identificação da fonte consultada.
 
+## Busca nos protocolos (RAG)
+
+O módulo `protocol_retriever` divide os documentos Markdown em trechos e os
+indexa com `InMemoryVectorStore`. Por padrão, utiliza o modelo multilíngue local
+`sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2`, sem exigir uma
+API paga. A ferramenta LangChain `search_internal_protocols` devolve o conteúdo
+recuperado com identificador, título, caminho do arquivo e índice do trecho.
+
+Na primeira execução, o modelo de embeddings é baixado pelo Hugging Face. A
+indexação ocorre novamente quando a aplicação é iniciada, o que é adequado para
+os dois protocolos pequenos desta demonstração.
+
 Para executar, abra o notebook pelo GitHub no Google Colab e selecione uma GPU
 T4 em **Ambiente de execução → Alterar o tipo de ambiente de execução**.
 
@@ -102,7 +114,8 @@ T4 em **Ambiente de execução → Alterar o tipo de ambiente de execução**.
 - [x] Implementar preprocessing e anonimização.
 - [x] Preparar o dataset de instruções.
 - [x] Executar fine-tuning com LoRA/QLoRA no Google Colab.
-- [ ] Construir o pipeline com LangChain.
+- [x] Criar as ferramentas LangChain para prontuários e protocolos.
+- [ ] Integrar as ferramentas no pipeline de resposta.
 - [ ] Implementar o fluxo de decisão com LangGraph.
 - [ ] Adicionar segurança, fontes, logs e testes.
 - [ ] Criar a interface de demonstração.
