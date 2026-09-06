@@ -18,7 +18,8 @@ class AssistantState(TypedDict, total=False):
     final_answer: str
     blocked: bool
     human_validation_required: bool
+    run_id: str
+    audited_at: str
     errors: list[str]
     executed_nodes: Annotated[list[str], operator.add]
     sources: Annotated[list[str], operator.add]
-

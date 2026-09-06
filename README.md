@@ -128,6 +128,24 @@ Na primeira execução, o modelo de embeddings será baixado. A saída JSON incl
 `priority`, `final_answer`, `sources`, `executed_nodes` e a indicação de revisão
 humana obrigatória.
 
+## Auditoria e privacidade
+
+Todas as rotas terminam no nó `audit_execution`. Cada execução acrescenta um
+evento ao arquivo local `artifacts/audit.jsonl` com:
+
+- UUID da execução e horário UTC;
+- identificador sintético validado;
+- prioridade, bloqueio e necessidade de validação humana;
+- nós percorridos, fontes consultadas e regras acionadas.
+
+O log não armazena a pergunta, o prontuário completo nem a resposta final. O
+diretório `artifacts/` está ignorado pelo Git e pode ser recriado localmente.
+Para visualizar os últimos eventos:
+
+```bash
+tail -n 5 artifacts/audit.jsonl
+```
+
 Para executar, abra o notebook pelo GitHub no Google Colab e selecione uma GPU
 T4 em **Ambiente de execução → Alterar o tipo de ambiente de execução**.
 
@@ -140,6 +158,6 @@ T4 em **Ambiente de execução → Alterar o tipo de ambiente de execução**.
 - [x] Criar as ferramentas LangChain para prontuários e protocolos.
 - [x] Integrar prontuários e protocolos no pipeline de resposta.
 - [x] Implementar o fluxo de decisão com LangGraph.
-- [ ] Adicionar segurança, fontes, logs e testes.
+- [x] Adicionar regras de segurança, fontes, logs e testes.
 - [ ] Criar a interface de demonstração.
 - [ ] Documentar a avaliação e os resultados.

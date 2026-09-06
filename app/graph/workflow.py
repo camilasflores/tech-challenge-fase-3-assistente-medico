@@ -10,6 +10,7 @@ from langgraph.graph import END, START, StateGraph
 from app.chains.protocol_retriever import build_protocol_retriever
 from app.database.repository import PatientRepository
 from app.graph.state import AssistantState
+from app.observability.audit import AuditLogger
 from app.safety.rules import (
     classify_priority,
     find_emergency_symptoms,
@@ -30,10 +31,12 @@ def _format_pending_exams(record: dict[str, Any]) -> str:
 def build_assistant_graph(
     repository: PatientRepository | None = None,
     protocol_retriever: Any | None = None,
+    audit_logger: AuditLogger | None = None,
 ):
     """Monta o grafo com dependências injetáveis para execução e testes."""
     patient_repository = repository or PatientRepository()
     retriever = protocol_retriever or build_protocol_retriever()
+    auditor = audit_logger or AuditLogger()
 
     def validate_request(state: AssistantState) -> dict[str, Any]:
         question = state.get("question", "").strip()
@@ -179,6 +182,14 @@ def build_assistant_graph(
             "executed_nodes": ["compose_response"],
         }
 
+    def audit_execution(state: AssistantState) -> dict[str, Any]:
+        event = auditor.log(state)
+        return {
+            "run_id": event["run_id"],
+            "audited_at": event["timestamp_utc"],
+            "executed_nodes": ["audit_execution"],
+        }
+
     builder = StateGraph(AssistantState)
     builder.add_node("validate_request", validate_request)
     builder.add_node("invalid_response", invalid_response)
@@ -190,6 +201,7 @@ def build_assistant_graph(
     builder.add_node("missing_data_response", missing_data_response)
     builder.add_node("retrieve_protocols", retrieve_protocols)
     builder.add_node("compose_response", compose_response)
+    builder.add_node("audit_execution", audit_execution)
 
     builder.add_edge(START, "validate_request")
     builder.add_conditional_edges("validate_request", route_request)
@@ -204,7 +216,7 @@ def build_assistant_graph(
         "missing_data_response",
         "compose_response",
     ):
-        builder.add_edge(terminal, END)
+        builder.add_edge(terminal, "audit_execution")
+    builder.add_edge("audit_execution", END)
 
     return builder.compile()
-

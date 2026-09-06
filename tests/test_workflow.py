@@ -9,6 +9,7 @@ from langchain_core.documents import Document
 from app.database.repository import PatientRepository
 from app.database.seed import seed_database
 from app.graph.workflow import build_assistant_graph
+from app.observability.audit import AuditLogger
 
 
 class StubProtocolRetriever:
@@ -34,6 +35,7 @@ def graph():
         yield build_assistant_graph(
             repository=PatientRepository(database_path),
             protocol_retriever=StubProtocolRetriever(),
+            audit_logger=AuditLogger(Path(directory) / "audit.jsonl"),
         )
 
 
@@ -44,6 +46,8 @@ def test_blocks_prohibited_request_before_loading_patient(graph):
     assert result["priority"] == "bloqueado"
     assert "load_patient" not in result["executed_nodes"]
     assert result["sources"] == ["data/protocols/POLITICA_SEGURANCA_001.md"]
+    assert result["executed_nodes"][-1] == "audit_execution"
+    assert result["run_id"]
 
 
 def test_interrupts_common_flow_for_emergency(graph):
@@ -73,6 +77,7 @@ def test_common_flow_retrieves_protocol_and_composes_traceable_answer(graph):
         "assess_patient",
         "retrieve_protocols",
         "compose_response",
+        "audit_execution",
     ]
     assert "perfil lipidico" in result["final_answer"]
     assert "sqlite:medical_records" in result["sources"]
@@ -83,5 +88,9 @@ def test_rejects_invalid_identifier(graph):
     result = graph.invoke({"question": "Mostre o prontuário", "patient_id": "PAC-001' OR 1=1"})
 
     assert result["blocked"] is True
-    assert result["executed_nodes"] == ["validate_request", "invalid_response"]
+    assert result["executed_nodes"] == [
+        "validate_request",
+        "invalid_response",
+        "audit_execution",
+    ]
     assert "formato sintético" in result["final_answer"]
