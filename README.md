@@ -105,6 +105,29 @@ Na primeira execução, o modelo de embeddings é baixado pelo Hugging Face. A
 indexação ocorre novamente quando a aplicação é iniciada, o que é adequado para
 os dois protocolos pequenos desta demonstração.
 
+## Fluxo de decisão com LangGraph
+
+O `AssistantState` transporta pergunta, prontuário, prioridade, fontes e nós
+executados. O grafo aplica as seguintes rotas determinísticas antes de qualquer
+futura geração por LLM:
+
+1. valida a pergunta e o identificador sintético;
+2. bloqueia pedidos de diagnóstico, prescrição ou alteração de dose;
+3. consulta o prontuário SQLite somente em pedidos permitidos;
+4. interrompe o fluxo comum quando há sintomas de alerta registrados;
+5. solicita os dados ausentes sem inventar conteúdo;
+6. recupera os protocolos e compõe um resumo rastreável nos demais casos.
+
+Para experimentar o fluxo após instalar as dependências:
+
+```bash
+python -m app.main PAC-003 "Quais exames estão pendentes?"
+```
+
+Na primeira execução, o modelo de embeddings será baixado. A saída JSON inclui
+`priority`, `final_answer`, `sources`, `executed_nodes` e a indicação de revisão
+humana obrigatória.
+
 Para executar, abra o notebook pelo GitHub no Google Colab e selecione uma GPU
 T4 em **Ambiente de execução → Alterar o tipo de ambiente de execução**.
 
@@ -115,8 +138,8 @@ T4 em **Ambiente de execução → Alterar o tipo de ambiente de execução**.
 - [x] Preparar o dataset de instruções.
 - [x] Executar fine-tuning com LoRA/QLoRA no Google Colab.
 - [x] Criar as ferramentas LangChain para prontuários e protocolos.
-- [ ] Integrar as ferramentas no pipeline de resposta.
-- [ ] Implementar o fluxo de decisão com LangGraph.
+- [x] Integrar prontuários e protocolos no pipeline de resposta.
+- [x] Implementar o fluxo de decisão com LangGraph.
 - [ ] Adicionar segurança, fontes, logs e testes.
 - [ ] Criar a interface de demonstração.
 - [ ] Documentar a avaliação e os resultados.
