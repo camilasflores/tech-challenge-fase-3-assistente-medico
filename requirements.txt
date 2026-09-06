@@ -4,6 +4,7 @@ langchain-text-splitters>=1,<2
 langgraph>=1,<2
 pydantic>=2,<3
 sentence-transformers>=3,<6
+streamlit>=1.42,<2
 accelerate>=1,<2
 peft>=0.20,<1
 torch>=2.4,<3

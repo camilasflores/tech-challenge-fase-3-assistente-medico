@@ -178,6 +178,22 @@ Para visualizar os últimos eventos:
 tail -n 5 artifacts/audit.jsonl
 ```
 
+## Interface de demonstração
+
+A aplicação Streamlit reúne os cinco pacientes sintéticos, campo de pergunta,
+prioridade, resposta, modelo acionado, fallback de segurança, fontes, nós do
+LangGraph e identificador da auditoria. O prontuário completo e os trechos de
+contexto não são exibidos na tela principal.
+
+Com o ambiente e, opcionalmente, `LORA_ADAPTER_PATH` configurados:
+
+```bash
+python -m streamlit run streamlit_app.py
+```
+
+O grafo é mantido em cache durante a sessão da interface para evitar recarregar
+embeddings e modelo a cada interação.
+
 Para executar, abra o notebook pelo GitHub no Google Colab e selecione uma GPU
 T4 em **Ambiente de execução → Alterar o tipo de ambiente de execução**.
 
@@ -195,5 +211,5 @@ T4 em **Ambiente de execução → Alterar o tipo de ambiente de execução**.
 - [x] Validar a estrutura e a integridade dos pesos do adaptador real.
 - [x] Validar a inferência com o adaptador LoRA real.
 - [x] Adicionar grounding para nomes de exames e referências a regras.
-- [ ] Criar a interface de demonstração.
+- [x] Criar a interface de demonstração.
 - [ ] Documentar a avaliação e os resultados.
