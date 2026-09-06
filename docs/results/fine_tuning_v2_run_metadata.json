@@ -1,0 +1,22 @@
+{
+  "created_at": "2026-09-06T12:52:00.451199+00:00",
+  "model_id": "Qwen/Qwen2.5-1.5B-Instruct",
+  "method": "SFT com QLoRA 4-bit",
+  "seed": 42,
+  "gpu": "Tesla T4",
+  "train_metrics": {
+    "train_runtime": 70.6698,
+    "train_samples_per_second": 2.377,
+    "train_steps_per_second": 0.34,
+    "total_flos": 190470962595840.0,
+    "train_loss": 1.563862721125285
+  },
+  "library_versions": {
+    "transformers": "5.16.1",
+    "datasets": "4.0.0",
+    "accelerate": "1.14.0",
+    "peft": "0.20.0",
+    "trl": "0.29.1",
+    "bitsandbytes": "0.50.2"
+  }
+}

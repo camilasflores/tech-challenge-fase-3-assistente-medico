@@ -77,6 +77,9 @@ executa SFT com QLoRA sobre o modelo `Qwen/Qwen2.5-1.5B-Instruct`. Ele inclui:
 - captura de respostas antes e depois do treinamento;
 - curva de perda, metadados da execução e exportação do adaptador.
 
+Os resultados reais da execução v2 e sua análise estão documentados em
+[`docs/results/`](docs/results/).
+
 Para executar, abra o notebook pelo GitHub no Google Colab e selecione uma GPU
 T4 em **Ambiente de execução → Alterar o tipo de ambiente de execução**.
 
@@ -85,7 +88,7 @@ T4 em **Ambiente de execução → Alterar o tipo de ambiente de execução**.
 - [x] Criar dados clínicos sintéticos e protocolos internos.
 - [x] Implementar preprocessing e anonimização.
 - [x] Preparar o dataset de instruções.
-- [ ] Executar fine-tuning com LoRA/QLoRA no Google Colab.
+- [x] Executar fine-tuning com LoRA/QLoRA no Google Colab.
 - [ ] Construir o pipeline com LangChain.
 - [ ] Implementar o fluxo de decisão com LangGraph.
 - [ ] Adicionar segurança, fontes, logs e testes.
