@@ -27,6 +27,12 @@ from app.safety.rules import (
 
 PATIENT_ID_PATTERN = re.compile(r"PAC-\d{3}")
 SECURITY_POLICY_SOURCE = "data/protocols/POLITICA_SEGURANCA_001.md"
+MISSING_FIELD_LABELS = {
+    "latest_vitals": "sinais vitais recentes",
+    "last_follow_up": "data do último acompanhamento",
+    "medications": "medicamentos",
+    "exams": "exames",
+}
 
 
 def _format_pending_exams(record: dict[str, Any]) -> str:
@@ -146,7 +152,10 @@ def build_assistant_graph(
         }
 
     def missing_data_response(state: AssistantState) -> dict[str, Any]:
-        fields = ", ".join(state["missing_fields"])
+        fields = ", ".join(
+            MISSING_FIELD_LABELS.get(field, field.replace("_", " "))
+            for field in state["missing_fields"]
+        )
         return {
             "final_answer": (
                 f"Dados insuficientes para organizar a análise. Campos ausentes: {fields}. "
