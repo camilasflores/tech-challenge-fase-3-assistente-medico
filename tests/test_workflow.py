@@ -82,6 +82,8 @@ def test_requests_missing_patient_data_without_inventing(graph):
 
     assert result["priority"] == "dados_insuficientes"
     assert "latest_vitals" in result["missing_fields"]
+    assert "sinais vitais recentes" in result["final_answer"]
+    assert "latest_vitals" not in result["final_answer"]
     assert "compose_response" not in result["executed_nodes"]
 
 
