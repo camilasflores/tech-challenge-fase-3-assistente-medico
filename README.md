@@ -234,20 +234,3 @@ no Colab; não deve ser usada em uma implantação pública.
 
 Para executar, abra o notebook pelo GitHub no Google Colab e selecione uma GPU
 T4 em **Ambiente de execução → Alterar o tipo de ambiente de execução**.
-
-## Próximas etapas
-
-- [x] Criar dados clínicos sintéticos e protocolos internos.
-- [x] Implementar preprocessing e anonimização.
-- [x] Preparar o dataset de instruções.
-- [x] Executar fine-tuning com LoRA/QLoRA no Google Colab.
-- [x] Criar as ferramentas LangChain para prontuários e protocolos.
-- [x] Integrar prontuários e protocolos no pipeline de resposta.
-- [x] Implementar o fluxo de decisão com LangGraph.
-- [x] Adicionar regras de segurança, fontes, logs e testes.
-- [x] Integrar o carregador do modelo-base com o adaptador LoRA.
-- [x] Validar a estrutura e a integridade dos pesos do adaptador real.
-- [x] Validar a inferência com o adaptador LoRA real.
-- [x] Adicionar grounding para nomes de exames e referências a regras.
-- [x] Criar a interface de demonstração.
-- [x] Documentar a avaliação e os resultados.
