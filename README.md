@@ -72,6 +72,7 @@ aprovados e foi validado com o adaptador LoRA real em uma Tesla T4.
 - [Decisões de arquitetura](docs/decisoes-de-arquitetura.md)
 - [Roteiro da demonstração em vídeo](docs/roteiro-video.md)
 - [Notebook de fine-tuning](notebooks/01_fine_tuning_qlora.ipynb)
+- [Adaptador LoRA para inferência - Release v1.0.0](https://github.com/camilasflores/tech-challenge-fase-3-assistente-medico/releases/tag/v1.0.0)
 
 ### Dados disponíveis
 
@@ -157,12 +158,18 @@ variável `LORA_ADAPTER_PATH` aponta para o adaptador exportado pelo notebook, o
 4. formata as mensagens com o chat template do tokenizer;
 5. gera a resposta de forma determinística.
 
-No Colab, envie o ZIP para `/content` e execute estas células. O extrator copia
-somente os arquivos necessários para inferência e ignora os checkpoints e o
-estado do otimizador:
+No Colab, baixe o adaptador publicado na Release e execute estas células. O
+extrator valida o arquivo e copia somente os itens necessários para inferência:
 
 ```python
-!python -m app.models.adapter_archive "/content/assistente-medico-lora (2).zip" "/content/assistente-medico-lora"
+!wget -q --show-progress \
+  -O /content/assistente-medico-lora-inferencia.zip \
+  "https://github.com/camilasflores/tech-challenge-fase-3-assistente-medico/releases/download/v1.0.0/assistente-medico-lora-inferencia.zip"
+
+!python -m app.models.adapter_archive \
+  "/content/assistente-medico-lora-inferencia.zip" \
+  "/content/assistente-medico-lora"
+
 %env LORA_ADAPTER_PATH=/content/assistente-medico-lora
 !python -m app.main PAC-003 "Quais exames estão pendentes?"
 ```
