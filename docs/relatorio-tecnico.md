@@ -1,5 +1,13 @@
 # Relatório técnico - Assistente Médico Acadêmico
 
+## Equipe
+
+- Arthur de Oliveira Silva
+- Bruno Akira Yamamoto
+- Camila da Silva Flores
+- Felipe Pereira da Silva
+- Rodrigo Canela Dias
+
 ## 1. Visão geral
 
 Este projeto implementa um protótipo acadêmico de assistente de apoio à equipe
@@ -134,4 +142,3 @@ Mesmo com essas limitações, o protótipo demonstra o ciclo completo solicitado
 preparação e anonimização de dados, fine-tuning, integração LangChain com base
 estruturada e contexto atualizado, coordenação com LangGraph, segurança,
 explainability, auditoria e interface executável.
-
