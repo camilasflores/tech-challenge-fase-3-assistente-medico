@@ -194,6 +194,27 @@ python -m streamlit run streamlit_app.py
 O grafo é mantido em cache durante a sessão da interface para evitar recarregar
 embeddings e modelo a cada interação.
 
+No Google Colab, inicie a interface com as opções abaixo para permitir o acesso
+por meio do proxy temporário do próprio ambiente:
+
+```python
+!nohup python -m streamlit run streamlit_app.py \
+  --server.port 8501 \
+  --server.address 0.0.0.0 \
+  --server.headless true \
+  --server.enableCORS false \
+  --server.enableXsrfProtection false \
+  --browser.gatherUsageStats false \
+  > /content/streamlit.log 2>&1 &
+
+from google.colab import output
+url = output.eval_js("google.colab.kernel.proxyPort(8501)")
+print("Abra a interface:", url)
+```
+
+A desativação de CORS e XSRF é restrita à demonstração temporária e autenticada
+no Colab; não deve ser usada em uma implantação pública.
+
 Para executar, abra o notebook pelo GitHub no Google Colab e selecione uma GPU
 T4 em **Ambiente de execução → Alterar o tipo de ambiente de execução**.
 
@@ -212,4 +233,4 @@ T4 em **Ambiente de execução → Alterar o tipo de ambiente de execução**.
 - [x] Validar a inferência com o adaptador LoRA real.
 - [x] Adicionar grounding para nomes de exames e referências a regras.
 - [x] Criar a interface de demonstração.
-- [ ] Documentar a avaliação e os resultados.
+- [x] Documentar a avaliação e os resultados.
