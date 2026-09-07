@@ -3,6 +3,14 @@
 Projeto da Pós Tech **IA para Devs - FIAP**, desenvolvido para o Tech Challenge
 da Fase 3.
 
+## Integrantes
+
+- Arthur de Oliveira Silva
+- Bruno Akira Yamamoto
+- Camila da Silva Flores
+- Felipe Pereira da Silva
+- Rodrigo Canela Dias
+
 O projeto implementa um assistente de apoio à equipe médica para acompanhamento
 de pacientes adultos com hipertensão. O sistema utiliza uma LLM ajustada por
 fine-tuning, consulta dados sintéticos de pacientes e protocolos internos e
