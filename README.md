@@ -54,7 +54,16 @@ docs/                Relatório, diagramas e roteiro do vídeo
 
 ## Status
 
-Projeto em desenvolvimento.
+Implementação e validação concluídas. O protótipo possui 43 testes automatizados
+aprovados e foi validado com o adaptador LoRA real em uma Tesla T4.
+
+## Entregáveis
+
+- [Relatório técnico detalhado](docs/relatorio-tecnico.md)
+- [Resultados do fine-tuning e do pipeline](docs/results/README.md)
+- [Decisões de arquitetura](docs/decisoes-de-arquitetura.md)
+- [Roteiro da demonstração em vídeo](docs/roteiro-video.md)
+- [Notebook de fine-tuning](notebooks/01_fine_tuning_qlora.ipynb)
 
 ### Dados disponíveis
 
