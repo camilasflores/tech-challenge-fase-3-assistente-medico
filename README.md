@@ -70,7 +70,6 @@ aprovados e foi validado com o adaptador LoRA real em uma Tesla T4.
 - [Relatório técnico detalhado](docs/relatorio-tecnico.md)
 - [Resultados do fine-tuning e do pipeline](docs/results/README.md)
 - [Decisões de arquitetura](docs/decisoes-de-arquitetura.md)
-- [Roteiro da demonstração em vídeo](docs/roteiro-video.md)
 - [Notebook de fine-tuning](notebooks/01_fine_tuning_qlora.ipynb)
 - [Adaptador LoRA para inferência - Release v1.0.0](https://github.com/camilasflores/tech-challenge-fase-3-assistente-medico/releases/tag/v1.0.0)
 
