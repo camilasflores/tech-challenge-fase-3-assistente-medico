@@ -57,7 +57,7 @@ data/
 fine_tuning/         Preparação, treinamento e avaliação da LLM
 notebooks/           Notebook executável no Google Colab
 tests/               Testes automatizados
-docs/                Relatório, diagramas e roteiro do vídeo
+docs/                Relatório e diagramas
 ```
 
 ## Status
