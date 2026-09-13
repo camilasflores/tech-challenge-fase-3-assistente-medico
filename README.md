@@ -57,7 +57,7 @@ data/
 fine_tuning/         Preparação, treinamento e avaliação da LLM
 notebooks/           Notebook executável no Google Colab
 tests/               Testes automatizados
-docs/                Relatório e diagramas
+docs/                Relatório, diagramas e roteiro do vídeo
 ```
 
 ## Status
@@ -71,6 +71,7 @@ aprovados e foi validado com o adaptador LoRA real em uma Tesla T4.
 - [Resultados do fine-tuning e do pipeline](docs/results/README.md)
 - [Decisões de arquitetura](docs/decisoes-de-arquitetura.md)
 - [Notebook de fine-tuning](notebooks/01_fine_tuning_qlora.ipynb)
+- [Notebook de demonstração no Colab](notebooks/02_demo_streamlit_colab.ipynb)
 - [Adaptador LoRA para inferência - Release v1.0.0](https://github.com/camilasflores/tech-challenge-fase-3-assistente-medico/releases/tag/v1.0.0)
 
 ### Dados disponíveis
